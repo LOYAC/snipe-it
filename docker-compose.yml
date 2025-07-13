@@ -18,6 +18,10 @@ services:
         restart: true
     env_file:
       - .env
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
 
   db:
     image: mariadb:11.4.7
@@ -35,3 +39,8 @@ services:
       interval: 5s
       timeout: 1s
       retries: 5
+
+networks:
+  default:
+    external: true
+    name: ${NETWORK}
